@@ -37,6 +37,7 @@ while(running){
 
 ## Build Examples
 ```bash
+#Install dependencies
 brew install onnxruntime
 brew install sdl2
 

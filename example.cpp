@@ -28,7 +28,7 @@ int main(int32_t argc, char** argv) {
         static std::chrono::milliseconds duration;
         bool b;
         
-        assert((vad.GetFrameSamples()==len/sizeof(float))&&"Unexpected frame size");
+        assert((pVAD->GetFrameSamples()==len/sizeof(float))&&"Unexpected frame size");
         
         std::copy(reinterpret_cast<const float*>(stream), reinterpret_cast<const float*>(stream)+pVAD->GetFrameSamples(), input_wav.begin());
         b = pVAD->Detect(input_wav);
