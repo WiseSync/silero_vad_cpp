@@ -18,6 +18,7 @@ file(GLOB_RECURSE SOURCE_FILES
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} PUBLIC onnxruntime::onnxruntime)
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRS})
+file(COPY model DESTINATION ${CMAKE_BINARY_DIR} )
 
 if(${BUILD_EXAMPLES})
     message(STATUS "BUILDING ${PROJECT_NAME} EXAMPLES")
