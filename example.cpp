@@ -7,13 +7,12 @@ using namespace silero_vad;
 using namespace std;
 
 int main(int32_t argc, char** argv) {
-    SDL_Init(SDL_INIT_AUDIO);
-
     int32_t captureId;
     silero_vad::SileroVAD vad("model/silero_vad.onnx");
-    
     SDL_AudioSpec capture_spec_requested;
     SDL_AudioSpec capture_spec_obtained;
+
+    SDL_Init(SDL_INIT_AUDIO);
 
     SDL_zero(capture_spec_requested);
     SDL_zero(capture_spec_obtained);
