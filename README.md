@@ -2,7 +2,7 @@
 
 ## Overview
 
-This package aims to provide an accurate, user-friendly voice activity detector (VAD) that runs in the C++. It runs [Silero VAD](https://github.com/snakers4/silero-vad) [[1]](#1) using [ONNX Runtime Web](https://github.com/microsoft/onnxruntime/tree/main/js/web). 
+This package aims to provide an accurate, user-friendly voice activity detector (VAD) that runs in the C++. It runs [Silero VAD](https://github.com/snakers4/silero-vad) [[1]](#1) using [ONNX Runtime C++](https://onnxruntime.ai/docs/get-started/with-cpp.html). 
 
 ## Requirements
 
