@@ -11,13 +11,10 @@
 #include <stdexcept>
 #include <iostream>
 #include <string>
-#include "onnxruntime_cxx_api.h"
+#include <onnxruntime_cxx_api.h>
 #include <cstdio>
 #include <cstdarg>
 #include <cassert>
-#if __cplusplus < 201703L
-#include <memory>
-#endif
 
 using namespace silero_vad;
 // default + parameterized constructor
