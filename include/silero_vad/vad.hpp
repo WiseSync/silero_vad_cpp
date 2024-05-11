@@ -33,7 +33,7 @@ private:
     // OnnxRuntime resources
     Ort::Env env;
     Ort::SessionOptions session_options;
-    std::shared_ptr<Ort::Session> session = nullptr;
+    std::unique_ptr<Ort::Session> session = nullptr;
     Ort::AllocatorWithDefaultOptions allocator;
     Ort::MemoryInfo memory_info = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeCPU);
 

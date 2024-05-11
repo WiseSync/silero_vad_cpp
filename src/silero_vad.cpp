@@ -15,7 +15,11 @@
 #include <cstdio>
 #include <cstdarg>
 #include <cassert>
+// #ifdef __APPLE__
+// #include <coreml_provider_factory.h>
+// #endif
 
+using namespace Ort;
 using namespace silero_vad;
 // default + parameterized constructor
 timestamp_t::timestamp_t(int start, int end)
@@ -95,8 +99,17 @@ void SileroVAD::init_onnx_model(const std::string &model_path)
 {
     // Init threads = 1 for
     init_engine_threads(1, 1);
+    /*
+    #ifdef __APPLE__
+    uint32_t coreml_flags = 0;
+    coreml_flags |= COREML_FLAG_ONLY_ENABLE_DEVICE_WITH_ANE;
+
+    Ort::ThrowOnError(OrtSessionOptionsAppendExecutionProvider_CoreML(session_options, coreml_flags));
+    #endif*/
     // Load model
-    session = std::make_shared<Ort::Session>(env, model_path.c_str(), session_options);
+    session = std::make_unique<Ort::Session>(env, model_path.c_str(), session_options);
+
+
 };
 
 void SileroVAD::Reset()
@@ -269,7 +282,10 @@ void SileroVAD::predict(const std::vector<float> &data)
 bool SileroVAD::Detect(const std::vector<float> &input_wav){
     assert(input_wav.size() == window_size_samples&&"input_wav.size() != window_size_samples");
     audio_length_samples += input_wav.size();
+
+    //auto start = std::chrono::high_resolution_clock::now();
     predict(input_wav);
+    //std::cout<<"predict time: "<<std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count()<<"us"<<std::endl;
 
     if (current_speech.start >= 0)
     {

@@ -6,9 +6,13 @@ set (BUILD_EXAMPLES ON)
 set( SRC_DIR src )
 set( INCLUDE_DIRS include )
 
-find_package(onnxruntime REQUIRED)
+if (NOT DEFINED EXTERNAL_ONNXRUNTIME_LIB_DIRECTORY)
+    message(STATUS "EXTERNAL_ONNXRUNTIME_LIB_DIRECTORY is not defined. find_package.")
+    find_package(onnxruntime REQUIRED)
+    set(EXTERNAL_ONNXRUNTIME_LIB onnexruntime::onnexruntime)
+endif()
 
-
+message(STATUS "EXTERNAL_ONNXRUNTIME_LIB_DIRECTORY: ${EXTERNAL_ONNXRUNTIME_LIB_DIRECTORY}")
 
 file(GLOB_RECURSE SOURCE_FILES
     "${SRC_DIR}/*.cpp"
@@ -16,8 +20,9 @@ file(GLOB_RECURSE SOURCE_FILES
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC onnxruntime::onnxruntime)
-target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRS})
+target_link_directories(${PROJECT_NAME} PUBLIC ${EXTERNAL_ONNXRUNTIME_LIB_DIRECTORY})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_ONNXRUNTIME_LIB})
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRS} ${EXTERNAL_ONNXRUNTIME_INCLUDE})
 file(COPY model DESTINATION ${CMAKE_BINARY_DIR} )
 
 if(${BUILD_EXAMPLES})
